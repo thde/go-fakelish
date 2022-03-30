@@ -1,7 +1,12 @@
 package unamegen
 
+//go:generate sh -c "gzip -fk9 characters/*.json"
+
 import (
+	"bytes"
+	"compress/gzip"
 	"encoding/json"
+	"log"
 	"math/rand"
 	"strings"
 	"time"
@@ -11,8 +16,8 @@ import (
 
 const maxSeq = 2
 
-//go:embed characters.json
-var charactersJSON []byte
+//go:embed characters/en.json.gz
+var charactersCompressedJSON []byte
 var random = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 type (
@@ -21,8 +26,13 @@ type (
 
 func New() (WordProbability, error) {
 	w := WordProbability{}
-	err := json.Unmarshal(charactersJSON, &w)
+	reader, err := gzip.NewReader(bytes.NewReader(charactersCompressedJSON))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer reader.Close()
 
+	err = json.NewDecoder(reader).Decode(&w)
 	return w, err
 }
 
