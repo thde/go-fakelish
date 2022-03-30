@@ -1,46 +1,34 @@
-# fakelish
-[![CircleCI](https://circleci.com/gh/nwtgck/go-fakelish.svg?style=shield)](https://circleci.com/gh/nwtgck/go-fakelish)
+# unamegen
 
-English-like word generator
+User name generator
 
 ## Install
-Executable binaries are available in [GitHub Releases](https://github.com/nwtgck/go-fakelish/releases)
+
+Executable binaries are available in [GitHub Releases](https://github.com/thde/unamegen/releases)
 
 ## Usage
 
 ```bash
-$ fakelish -h
-English-like word generator
-
-Usage:
-  fakelish [flags]
-
-Flags:
-      --capitalize    capitalize the first letter (default true)
-  -h, --help          help for fakelish
-      --max int       max length of fake word (default 9)
-      --min int       min length of fake word (default 6)
-  -n, --n-words int   number of fake words (negative makes infinite) (default 10)
+$ unamegen --help
+Usage of unamegen [ amount ]:
+  -c, --capitalize   capitalize the first letter
+  -h, --help         print help message
+      --max int      max length of fake word (default 12)
+      --min int      min length of fake word (default 6)
 ```
 
 ## Examples
 
 ```bash
-$ fakelish 
-Lebuffic
-Caming
-Unizans
-Nantilien
-Losychle
-Deping
-Subsce
-Shemon
-Unhyle
-Reighthes
+$ unamegen 
+ptical
+senturical
+calizz
+atical
+tercon
+aricaing
+cowful
+mineving
+dratores
+counimper
 ```
-
-## Try on The Go Playground
-<https://play.golang.org/p/_Y84Z00q6Ct>
-
-## For JavaScript/TypeScript
-GitHub Repository: <https://github.com/nwtgck/fakelish-npm>
