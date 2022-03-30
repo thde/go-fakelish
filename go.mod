@@ -1,8 +1,5 @@
-module github.com/nwtgck/go-fakelish
+module github.com/thde/unamegen
 
-go 1.12
+go 1.17
 
-require (
-	github.com/spf13/cobra v0.0.5
-	github.com/ugorji/go/codec v1.1.7
-)
+require github.com/spf13/pflag v1.0.5
