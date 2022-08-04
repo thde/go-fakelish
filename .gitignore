@@ -1,2 +1,3 @@
 characters/*.gz
 dist/
+*.gob

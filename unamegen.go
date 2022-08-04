@@ -1,71 +1,54 @@
 package unamegen
 
-//go:generate sh -c "gzip -fk9 characters/*.json"
-
 import (
-	"bytes"
-	"compress/gzip"
-	"encoding/json"
-	"log"
 	"math/rand"
 	"strings"
 	"time"
-
-	_ "embed"
 )
 
-const maxSeq = 2
+const (
+	MaxSequences = 2
+	Prefix = "^"
+	Suffix = "$"
+)
 
-//go:embed characters/en.json.gz
-var charactersCompressedJSON []byte
 var random = rand.New(rand.NewSource(time.Now().UnixNano()))
 
 type (
 	WordProbability map[string]map[string]float32
 )
 
-func New() (WordProbability, error) {
-	w := WordProbability{}
-	reader, err := gzip.NewReader(bytes.NewReader(charactersCompressedJSON))
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer reader.Close()
-
-	err = json.NewDecoder(reader).Decode(&w)
-	return w, err
-}
-
 func (w WordProbability) GenerateFakeWordWithUnexpectedLength() string {
-	character := "^"
+	character := Prefix
 	word := ""
-	var characters []string
-	for character != "END" {
+	characters := []string{}
+	for character != Suffix {
 		characters = append(characters, character)
-		if len(characters) > maxSeq {
+		if len(characters) > MaxSequences {
 			characters = characters[1:]
 		}
-		nextAccumedProbs := map[string]float32{} //nolint
+		var nextAccumedProbs map[string]float32
 		n := 0
 		for {
 			str := strings.Join(characters[n:], "")
 			nextAccumedProbs = w[str]
 			n += 1
-			if !(nextAccumedProbs == nil && n < len(characters)) {
+			if (nextAccumedProbs != nil || n >= len(characters)) {
 				break
 			}
 		}
 		nextCharacter := ""
 		r := random.Float32()
+		probability := float32(0)
 		for ch, prob := range nextAccumedProbs {
 			nextCharacterCandidate := ch
-			probability := prob
+			probability += prob
 			if r <= probability {
 				nextCharacter = nextCharacterCandidate
 				break
 			}
 		}
-		if nextCharacter != "END" {
+		if nextCharacter != Suffix {
 			word += nextCharacter
 		}
 		character = nextCharacter
@@ -83,7 +66,7 @@ func (w WordProbability) GenerateFakeWordByLength(length int) string {
 
 func (w WordProbability) GenerateFakeWord(minLength int, maxLength int) string {
 	fakeWord := ""
-	for !(minLength <= len(fakeWord) && len(fakeWord) <= maxLength) {
+	for (minLength > len(fakeWord) || len(fakeWord) > maxLength) {
 		fakeWord = w.GenerateFakeWordWithUnexpectedLength()
 	}
 	return fakeWord
