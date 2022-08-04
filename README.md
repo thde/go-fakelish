@@ -1,39 +1,20 @@
 # unamegen
 
-User name generator
-
-## Install
-
-Executable binaries are available in [GitHub Releases](https://github.com/thde/unamegen/releases)
-
-## Usage
-
-```bash
-$ unamegen --help
-Usage of unamegen [ amount ]:
-  -c, --capitalize     Start the usernames with a capital letter
-  -h, --help           print help message
-  -i, --input string   Input file
-      --max int        max length of fake word (default 12)
-      --min int        min length of fake word (default 6)
-  -1, --no-columns     Don't print the generated usernames in columns
-```
-
-## Examples
+User name generator:
 
 ```bash
 $ unamegen
-ptical
-senturical
-calizz
-atical
-tercon
-aricaing
-cowful
-mineving
-dratores
-counimper
+saucamanery  whoorman    motere      raillian
+adessmince   belder      litizon     trition
+speciaturde  botortally  harically   mentive
+sentent      latinder    agenus      constic
+bancial      jusicandly  shifead     revist
+clublics     polver      adjurrimary explan
+gatirel      coment      meentrove   patently
 ```
+## Install
+
+Executable binaries are available in [GitHub Releases](https://github.com/thde/unamegen/releases)
 
 ## Supply you own word lists
 
