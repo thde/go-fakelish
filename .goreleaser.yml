@@ -15,3 +15,11 @@ archives:
   - format_overrides:
       - goos: windows
         format: zip
+brews:
+  - tap:
+      owner: "{{ .Env.GITHUB_REPOSITORY_OWNER }}"
+      name: "{{ .ProjectName }}"
+    commit_msg_template: "build: update formulae to version {{ .Tag }}"
+    homepage: "https://github.com/{{ .Env.GITHUB_REPOSITORY }}"
+    description: Generate user names with ease
+    license: MIT
