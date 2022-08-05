@@ -16,6 +16,14 @@ gatirel      coment      meentrove   patently
 
 Executable binaries are available in [GitHub Releases](https://github.com/thde/unamegen/releases)
 
+### Homebrew
+
+With homebrew, install unamegen like so:
+
+```shell
+brew install thde/unamegen/unamegen
+```
+
 ## Supply you own word lists
 
 `unamegen` integrates a basic english word list it uses to generate the random words.
