@@ -8,8 +8,7 @@ import (
 	"os"
 
 	flag "github.com/spf13/pflag"
-
-	"github.com/thde/unamegen/probs"
+	"github.com/thde/fakeword"
 )
 
 var (
@@ -50,8 +49,8 @@ func run(out io.Writer, errOut io.Writer) error {
 		enc = gob.NewEncoder(out)
 	}
 
-	w := probs.Words{}
-	return enc.Encode(w.Read(file).Calculate())
+	w := fakeword.Dictionary{}
+	return enc.Encode(w.Read(file).Generator())
 }
 
 func main() {

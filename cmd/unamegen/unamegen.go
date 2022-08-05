@@ -12,8 +12,7 @@ import (
 
 	flag "github.com/spf13/pflag"
 
-	"github.com/thde/unamegen"
-	"github.com/thde/unamegen/probs"
+	"github.com/thde/fakeword"
 )
 
 //go:generate sh -c "go run ../calculate/calculate.go ../../dictionaries/en.txt > en.gob"
@@ -57,7 +56,7 @@ func run() error {
 		return fmt.Errorf("min larger than max")
 	}
 
-	var w unamegen.WordProbability
+	var w fakeword.Generator
 	if *in == "" {
 		dec := gob.NewDecoder(bytes.NewBuffer(en))
 		dec.Decode(&w)
@@ -68,14 +67,14 @@ func run() error {
 		}
 		defer file.Close()
 
-		p := probs.Words{}
-		w = unamegen.WordProbability(p.Read(file).Calculate())
+		p := fakeword.Dictionary{}
+		w = fakeword.Generator(p.Read(file).Generator())
 	}
 
 	// if amount is negative, it will repeat forever
 	words := []string{}
 	for i := 0; amount < 0 || i < amount; i++ {
-		words = append(words, w.GenerateFakeWord(*min, *max))
+		words = append(words, w.WordWithDistance(*min, *max))
 	}
 
 	if *noColumns {
