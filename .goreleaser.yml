@@ -19,6 +19,7 @@ brews:
   - tap:
       owner: "{{ .Env.GITHUB_REPOSITORY_OWNER }}"
       name: "{{ .ProjectName }}"
+    folder: Formula
     commit_msg_template: "build: update formulae to version {{ .Tag }}"
     homepage: "https://github.com/{{ .Env.GITHUB_REPOSITORY }}"
     description: Generate user names with ease
