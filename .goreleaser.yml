@@ -21,6 +21,6 @@ brews:
       name: "{{ .ProjectName }}"
     folder: Formula
     commit_msg_template: "build: update formulae to version {{ .Tag }}"
-    homepage: "https://github.com/{{ .Env.GITHUB_REPOSITORY }}"
+    homepage: "https://thde.io/{{ .ProjectName }}"
     description: Generate user names with ease
     license: MIT

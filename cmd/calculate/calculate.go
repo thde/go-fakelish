@@ -8,7 +8,7 @@ import (
 	"os"
 
 	flag "github.com/spf13/pflag"
-	"github.com/thde/fakeword"
+	"thde.io/fakeword"
 )
 
 var (

@@ -12,7 +12,7 @@ import (
 
 	flag "github.com/spf13/pflag"
 
-	"github.com/thde/fakeword"
+	"thde.io/fakeword"
 )
 
 //go:generate sh -c "go run ../calculate/calculate.go ../../dictionaries/en.txt > en.gob"
