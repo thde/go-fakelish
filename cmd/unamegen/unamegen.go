@@ -25,10 +25,10 @@ var (
 	commit  string
 	date    string
 
-	min        = flag.Int("min", 6, "min length of fake word")
-	max        = flag.Int("max", 12, "max length of fake word")
-	in         = flag.StringP("input", "i", "", "Input file")
-	noColumns  = flag.BoolP("no-columns", "1", false, "Don't print the generated usernames in columns")
+	min       = flag.Int("min", 6, "min length of fake word")
+	max       = flag.Int("max", 12, "max length of fake word")
+	in        = flag.StringP("input", "i", "", "Input file")
+	noColumns = flag.BoolP("no-columns", "1", false, "Don't print the generated usernames in columns")
 
 	help = flag.BoolP("help", "h", false, "print help message")
 )

@@ -16,8 +16,8 @@ var (
 	commit  string
 	date    string
 
-	jsonEncoding    = flag.Bool("json", false, "Use JSON encoding instead of GOB")
-	help            = flag.BoolP("help", "h", false, "Print help message")
+	jsonEncoding = flag.Bool("json", false, "Use JSON encoding instead of GOB")
+	help         = flag.BoolP("help", "h", false, "Print help message")
 )
 
 type Encoder interface {
