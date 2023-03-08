@@ -20,7 +20,7 @@ var (
 	help         = flag.BoolP("help", "h", false, "Print help message")
 )
 
-type Encoder interface {
+type encoder interface {
 	Encode(v any) error
 }
 
@@ -40,7 +40,7 @@ func run(out io.Writer, errOut io.Writer) error {
 	}
 	defer file.Close()
 
-	var enc Encoder
+	var enc encoder
 	if *jsonEncoding {
 		jenc := json.NewEncoder(out)
 		jenc.SetIndent("", "  ")
