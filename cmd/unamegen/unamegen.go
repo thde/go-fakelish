@@ -15,7 +15,7 @@ import (
 	"thde.io/fakeword"
 )
 
-//go:generate sh -c "go run ../calculate/calculate.go ../../dictionaries/en.txt > en.gob"
+//go:generate sh -c "head -n 3000 ../../dictionaries/en.txt | go run ../calculate/calculate.go > en.gob"
 
 //go:embed en.gob
 var en []byte
@@ -49,6 +49,10 @@ func run() error {
 		if err != nil {
 			return fmt.Errorf("amount error: %w", err)
 		}
+		if amount <= 0 {
+			return fmt.Errorf("amount '%d' is equal or smaller than 0", amount)
+		}
+
 		amount = a
 	}
 
@@ -71,7 +75,6 @@ func run() error {
 		w = p.Read(file).Generator()
 	}
 
-	// if amount is negative, it will repeat forever
 	words := []string{}
 	for i := 0; amount < 0 || i < amount; i++ {
 		words = append(words, w.WordWithDistance(*min, *max))

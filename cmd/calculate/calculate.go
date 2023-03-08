@@ -29,16 +29,10 @@ func run(out io.Writer, errOut io.Writer) error {
 	flag.CommandLine.SetOutput(errOut)
 
 	if *help {
-		fmt.Fprintf(errOut, "Usage of %s (%s, %s %s) [ file ]:\n", os.Args[0], version, commit, date)
+		fmt.Fprintf(errOut, "Usage of %s (%s, %s %s):\n", os.Args[0], version, commit, date)
 		flag.PrintDefaults()
 		return nil
 	}
-
-	file, err := os.Open(flag.Arg(0))
-	if err != nil {
-		return err
-	}
-	defer file.Close()
 
 	var enc encoder
 	if *jsonEncoding {
@@ -50,7 +44,7 @@ func run(out io.Writer, errOut io.Writer) error {
 	}
 
 	w := fakeword.Dictionary{}
-	return enc.Encode(w.Read(file).Generator())
+	return enc.Encode(w.Read(os.Stdin).Generator())
 }
 
 func main() {
