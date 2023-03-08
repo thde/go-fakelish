@@ -68,7 +68,7 @@ func run() error {
 		defer file.Close()
 
 		p := fakeword.Dictionary{}
-		w = fakeword.Generator(p.Read(file).Generator())
+		w = p.Read(file).Generator()
 	}
 
 	// if amount is negative, it will repeat forever
