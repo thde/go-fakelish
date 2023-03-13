@@ -1,3 +1,5 @@
-characters/*.gz
 dist/
+public/
+
 *.gob
+*.gob.*
