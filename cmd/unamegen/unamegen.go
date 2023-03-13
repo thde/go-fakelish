@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"compress/gzip"
 	_ "embed"
 	"encoding/gob"
 	"fmt"
@@ -15,9 +16,9 @@ import (
 	"thde.io/fakeword"
 )
 
-//go:generate sh -c "head -n 3000 ../../dictionaries/en.txt | go run ../calculate/calculate.go > en.gob"
+//go:generate sh -c "head -n 3000 ../../dictionaries/en.txt | go run ../calculate/calculate.go --gzip > en.gob.gz"
 
-//go:embed en.gob
+//go:embed en.gob.gz
 var en []byte
 
 var (
@@ -62,7 +63,12 @@ func run() error {
 
 	var w fakeword.Generator
 	if *in == "" {
-		dec := gob.NewDecoder(bytes.NewBuffer(en))
+		reader, err := gzip.NewReader(bytes.NewBuffer(en))
+		if err != nil {
+			return fmt.Errorf("internal words parsing error: %w", err)
+		}
+
+		dec := gob.NewDecoder(reader)
 		dec.Decode(&w)
 	} else {
 		file, err := os.Open(*in)

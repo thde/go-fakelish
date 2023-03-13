@@ -1,6 +1,7 @@
 package main
 
 import (
+	"compress/gzip"
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
@@ -16,8 +17,9 @@ var (
 	commit  string
 	date    string
 
-	jsonEncoding = flag.Bool("json", false, "Use JSON encoding instead of GOB")
-	help         = flag.BoolP("help", "h", false, "Print help message")
+	jsonEncoding    = flag.Bool("json", false, "Use JSON encoding instead of GOB")
+	gzipCompression = flag.Bool("gzip", false, "Use GZIP compression")
+	help            = flag.BoolP("help", "h", false, "Print help message")
 )
 
 type encoder interface {
@@ -32,6 +34,10 @@ func run(out io.Writer, errOut io.Writer) error {
 		fmt.Fprintf(errOut, "Usage of %s (%s, %s %s):\n", os.Args[0], version, commit, date)
 		flag.PrintDefaults()
 		return nil
+	}
+
+	if *gzipCompression {
+		out = gzip.NewWriter(out)
 	}
 
 	var enc encoder
