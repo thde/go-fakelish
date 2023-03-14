@@ -30,9 +30,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
       - run: go mod download -x
-      - uses: goreleaser/goreleaser-action@v3
+      - name: Define goreleaser flags
+        run:  test -n "$(git tag --points-at HEAD)" || echo "GORELEASER_FLAGS=--snapshot" >> $GITHUB_ENV 
+      - uses: goreleaser/goreleaser-action@v4
         with:
           version: latest
-          args: release --rm-dist
+          args: release --clean ${{ env.GORELEASER_FLAGS }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
