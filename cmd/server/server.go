@@ -30,13 +30,16 @@ func main() {
 	fs := http.FileServer(http.Dir(dir))
 
 	log.Print("serving " + dir + " on http://" + addr)
-	http.Serve(ln, logRequest(http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
+	err = http.Serve(ln, logRequest(http.HandlerFunc(func(resp http.ResponseWriter, req *http.Request) {
 		resp.Header().Add("cache-control", "no-cache")
 		if strings.HasSuffix(req.URL.Path, ".wasm") {
 			resp.Header().Set("content-type", "application/wasm")
 		}
 		fs.ServeHTTP(resp, req)
 	})))
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func logRequest(handler http.Handler) http.Handler {
