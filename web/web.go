@@ -1,3 +1,4 @@
+//go:generate curl -s https://raw.githubusercontent.com/tinygo-org/tinygo/v0.30.0/targets/wasm_exec.js -o wasm_exec.js
 package main
 
 import (
