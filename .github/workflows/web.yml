@@ -20,7 +20,7 @@ jobs:
           curl -sLo tinygo.deb https://github.com/tinygo-org/tinygo/releases/download/v${TINYGO_VERSION}/tinygo_${TINYGO_VERSION}_amd64.deb
           sudo dpkg -i tinygo.deb
         env:
-          TINYGO_VERSION: 0.27.0
+          TINYGO_VERSION: 0.30.0
       - run: make web
       - uses: cloudflare/pages-action@v1
         with:
